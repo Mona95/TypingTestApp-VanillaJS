@@ -1,6 +1,6 @@
 ## Typing Test Application Using Vanilla JS
 
-This project follows the pure VanillaJS using Modular Design Pattern.<br>
+This project uses the pure VanillaJS using Modular Design Pattern.<br>
 
 Modular Categorization is as follow:<br>
 

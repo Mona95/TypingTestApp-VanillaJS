@@ -1,4 +1,5 @@
 //events module can access all the other modules directly
+
 let eventsModule = (function (dModule, uModule, cModule, wModule) {
   let addEventListeners = function () {
     //character typing event listener
@@ -9,7 +10,6 @@ let eventsModule = (function (dModule, uModule, cModule, wModule) {
     //init function , initialize the test before start
     init: function (duration, textNumber) {
       // STEPS :
-
       //fill the list of test words : in data module
       //fill the list of test words : in ui module
       // set the total time test
@@ -20,8 +20,10 @@ let eventsModule = (function (dModule, uModule, cModule, wModule) {
       //format the active module : in ui module
       //focus on text input : in ui module
       //add event listeners
+      let words = wModule.getWords(textNumber);
+      dModule.fillListOfTestWords(textNumber, words);
 
       addEventListeners();
     },
   };
-})(dataModule, UIModule, certificateModule, wordsModule);
+})(dataModule, uiModule, certificateModule, wordsModule);

@@ -24,6 +24,63 @@ let dataModule = (function () {
     },
   };
 
+  let lineReturn = "|";
+
+  let shuffle = (array) => {
+    let newArray = [],
+      randomIndex;
+    while (array.length > 0) {
+      randomIndex = Math.floor(Math.random() * array.length);
+      let randomElement = array[randomIndex];
+      newArray.push(randomElement);
+      array.splice(randomIndex, 1);
+    }
+    return newArray;
+  };
+
+  String.prototype.capitalize = function () {
+    let newString = "",
+      firstCharCap = this.charAt(0).toUpperCase();
+    let remainingChar = this.slice(1);
+    newString = `${firstCharCap}${remainingChar}`;
+    return newString;
+  };
+
+  let capitalizeRandom = (arrayOfStrings) => {
+    return arrayOfStrings.map((str) => {
+      //chanves of x equal to 3 : 25%
+      let x = Math.floor(Math.random() * 4);
+      return x === 3 ? str.capitalize() : str;
+    });
+  };
+
+  let addRandomPunctuation = (arrayOfStrings) => {
+    return arrayOfStrings.map((str) => {
+      let randomPunctuation,
+        puncItems = [
+          "?",
+          ",",
+          ",",
+          ",",
+          ".",
+          ".",
+          ".",
+          "!",
+          " ",
+          " ",
+          " ",
+          " ",
+          " ",
+          " ",
+          " ",
+          lineReturn,
+        ],
+        randomIndex = Math.floor(Math.random() * puncItems.length);
+      randomPunctuation = puncItems[randomIndex];
+      return `${str}${randomPunctuation}`;
+    });
+  };
+
   //word constructor
   //{
   //    value: {correct:'', user:'', isCorrect:false},
@@ -53,10 +110,24 @@ let dataModule = (function () {
     calculateAccurancy: function () {}, //calculates accurancy and accurancyChange and updates them in appData
 
     //test words
-    fillListOfTestWords: function (textNumber) {}, //fills words.testWords
+    //fills words.testWords
+    fillListOfTestWords: function (textNumber, words) {
+      let result = words.split(" ");
+      if (textNumber === 0) {
+        //shuffle the words and capitalize random strings and add random punctuation
+        result = shuffle(result);
+        result = capitalizeRandom(result);
+        result = addRandomPunctuation(result);
+      }
+      appData.words.testWords = result;
+    },
     getListOfTestWords: function () {}, //get list of test words: words.testWords
     moveToNewWord: function () {}, // increments the currentWordIndex - updates the current word(appData.words.currentWord)
     //by creating a new instance of the word class - updates numOfCorrectWords, numOfCorrectCharacters and numOfTestCharacters
     updateCurrentWord: function (value) {}, // updates current word using user input
+
+    returnData() {
+      console.log(appData);
+    },
   };
 })();

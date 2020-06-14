@@ -1,23 +1,23 @@
-let UIModule = (function () {
+let uiModule = (function () {
   //classes used to select HTML Elements
   let DOMElements = {
     //indicators - test control
-    timeLeft, //HTML element displaying time left
+    //timeLeft, //HTML element displaying time left
     //test results
-    wpm,
-    wpmChange,
-    cpm,
-    cpmChange,
-    accurancy,
-    accurancyChange,
+    //wpm,
+    //wpmChange,
+    //cpm,
+    //cpmChange,
+    //accurancy,
+    //accurancyChange,
     //user input
-    textInput,
-    nameInput,
+    //textInput,
+    //nameInput,
     //test words
-    content,
-    activeWord,
+    //content,
+    //activeWord,
     //modal
-    modal,
+    //modal,
   };
 
   return {

@@ -1,8 +1,8 @@
-let eventsModule = (function () {
+//events module can access all the other modules directly
+let eventsModule = (function (dModule, uModule, cModule, wModule) {
   let addEventListeners = function () {
     //character typing event listener
     //click on download button event listener
-    // click on restart button event listener
   };
 
   return {
@@ -11,4 +11,4 @@ let eventsModule = (function () {
       addEventListeners();
     },
   };
-})();
+})(dataModule, UIModule, certificateModule, wordsModule);

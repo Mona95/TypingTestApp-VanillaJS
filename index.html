@@ -1,9 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/style.css" />
+
     <title>Typing Test App</title>
   </head>
-  <body></body>
+  <body>
+    <!-- Start Main Container -->
+    <div class="container">
+      <div class="text-center">
+        <header><h1>Typing Test Application</h1></header>
+        <div class="row">
+          <!-- Start Test Indicators -->
+          <div class="col-3 measurement">
+            <div class="meas_container">
+              <div class="typingIcon">
+                <img src="./images/speed1.png" width="60" />
+              </div>
+              <div id="wpm" class="value">0</div>
+              <div class="title"><span> WPM </span></div>
+            </div>
+            <div class="change"><span id="wpmChange"></span></div>
+          </div>
+          <div class="col-3 measurement">
+            <div class="meas_container">
+              <div class="typingIcon">
+                <img src="./images/pointer.png" width="40" />
+              </div>
+              <div id="cpm" class="value">0</div>
+              <div class="title"><span> CPM </span></div>
+            </div>
+            <div class="change"><span id="cpmChange"></span></div>
+          </div>
+          <div class="col-3 measurement">
+            <div class="meas_container">
+              <div class="typingIcon">
+                <img src="./images/accurancy.png" width="60" />
+              </div>
+              <div id="accurancy" class="value">0%</div>
+              <div class="title"><span> Accurancy </span></div>
+            </div>
+            <div class="change"><span id="accurancyChange"></span></div>
+          </div>
+          <div class="col-3 measurement">
+            <div class="meas_container">
+              <div class="typingIcon">
+                <img src="./images/counter.png" width="50" />
+              </div>
+              <div id="timeLeft" class="value">60</div>
+              <div class="title"><span> Time Left </span></div>
+            </div>
+          </div>
+        </div>
+        <!-- End Test Indicators -->
+
+        <!--- Start Test Words -->
+        <div id="content" class="text-center"></div>
+        <!--- End Test Words -->
+
+        <!-- Start Text Input -->
+        <div>
+          <input
+            type="text"
+            placeholder="Type here ..."
+            class="text-center"
+            id="input"
+          />
+        </div>
+        <!-- End Text Input -->
+
+        <!-- Start Keyboard Img -->
+        <div class="keyboard"></div>
+        <!-- End Keyboard Img -->
+
+        <!-- Start Restart Button -->
+        <div class="restart">
+          <button
+            type="button"
+            onclick="location.reload()"
+            class="btn btn-warning btn-lg"
+          >
+            RESTART
+          </button>
+        </div>
+        <!-- End Restart Button -->
+
+        <!-- Start Modal -->
+        <div id="finishedModal" class="modal" tabindex="-1" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">You finished your test !</h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label for="name" class="sr-only">Enter your name:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    placeholder="Your full name"
+                  />
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="button" class="btn btn-info">
+                  Download your Certificate
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Modal -->
+      </div>
+    </div>
+    <!-- End Main Container -->
+
+    <!-- Scripts -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="code.js"></script>
+    <script type="module" src="translations.js"></script>
+    <script type="text/javascript" src="modules/dataModule.js"></script>
+    <script type="text/javascript" src="modules/UIModule.js"></script>
+    <script type="text/javascript" src="modules/certificateModule.js"></script>
+    <script type="text/javascript" src="modules/wordsModule.js"></script>
+    <script type="text/javascript" src="modules/eventsModule.js"></script>
+  </body>
 </html>

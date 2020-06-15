@@ -20,8 +20,13 @@ let eventsModule = (function (dModule, uModule, cModule, wModule) {
       //format the active module : in ui module
       //focus on text input : in ui module
       //add event listeners
+
       let words = wModule.getWords(textNumber);
       dModule.fillListOfTestWords(textNumber, words);
+
+      let testWords = dModule.getListOfTestWords(),
+        lineReturn = dModule.getLineReturn();
+      uiModule.fillContent(testWords, lineReturn);
 
       addEventListeners();
     },

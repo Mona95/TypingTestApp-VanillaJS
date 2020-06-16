@@ -2,22 +2,22 @@ let uiModule = (function () {
   //classes used to select HTML Elements
   let DOMElements = {
     //indicators - test control
-    timeLeft: "", //HTML element displaying time left
+    timeLeft: document.getElementById("timeLeft"), //HTML element displaying time left
     //test results
-    wpm: "",
-    wpmChange: "",
-    cpm: "",
-    cpmChange: "",
-    accurancy: "",
-    accurancyChange: "",
+    wpm: document.getElementById("wpm"),
+    wpmChange: document.getElementById("wpmChange"),
+    cpm: document.getElementById("cpm"),
+    cpmChange: document.getElementById("cpmChange"),
+    accurancy: document.getElementById("accurancy"),
+    accurancyChange: document.getElementById("acuurancyChange"),
     //user input
-    textInput: "",
-    nameInput: "",
+    textInput: document.querySelector("#input"),
+    nameInput: document.querySelector(".form-group"),
     //test words
     content: document.getElementById("content"),
     activeWord: "",
     //modal
-    modal: "",
+    modal: $("#myModal"),
   };
 
   let splitArray = (str) => {
@@ -50,7 +50,9 @@ let uiModule = (function () {
     getDOMElements: function () {},
 
     //indicators - Test Control
-    updateTimeLeft: function () {},
+    updateTimeLeft: function (timeLeft) {
+      DOMElements.timeLeft.innerHTML = timeLeft;
+    },
 
     //results
     updateResults: function () {},

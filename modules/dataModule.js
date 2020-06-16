@@ -94,11 +94,18 @@ let dataModule = (function () {
 
   return {
     //indicators - test Control
-    setTestTime: function (x) {}, //sets the total test time to x
-    initializeTimeLeft: function () {}, // initializes time left to the total test time
+    //sets the total test time to x
+    setTestTime: function (x) {
+      appData.indicators.totaltestTime = x;
+    },
+    initializeTimeLeft: function () {
+      appData.indicators.timeLeft = appData.indicators.totaltestTime;
+    }, // initializes time left to the total test time
     startTest: function () {}, //starts the test
     endTest: function () {}, //ends the test
-    getTimeLeft: function () {}, //return the remaining test time
+    getTimeLeft: function () {
+      return appData.indicators.timeLeft;
+    }, //return the remaining test time
     reduceTime: function () {}, //reduces the time by one second
     timeLeft: function () {}, //checks if there is time left to continue the test
     testEnded: function () {}, //checks if the test has already ended

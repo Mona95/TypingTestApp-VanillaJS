@@ -72,7 +72,9 @@ let uiModule = (function () {
     spacePressed: function (event) {
       return event.data === " ";
     },
-    enterPressed: function () {},
+    enterPressed: function (lineReturn) {
+      return this.getTypedWord().includes(`${lineReturn} `);
+    },
     emptyInput: function () {
       DOMElements.textInput.value = "";
     },

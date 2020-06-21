@@ -2,6 +2,24 @@
 
 let eventsModule = (function (dModule, uModule, cModule, wModule) {
   let addEventListeners = function () {
+    //fake event for enter
+    uModule.getDOMElements().textInput.addEventListener("keydown", (event) => {
+      //if the test ended , do nothing
+      if (dModule.testEnded()) {
+        return;
+      }
+      //check if the user pressed Enter
+      var key = event.keyCode;
+      if (key === 13) {
+        uModule.getDOMElements().textInput.value += `${dModule.getLineReturn()} `;
+
+        //create a new 'input' event
+        let inputEvent = new Event("input");
+        //dispatch new event
+        uModule.getDOMElements().textInput.dispatchEvent(inputEvent);
+      }
+    });
+
     //character typing event listener
     uModule.getDOMElements().textInput.addEventListener("input", (event) => {
       //if the test ended , do nothing
@@ -22,7 +40,10 @@ let eventsModule = (function (dModule, uModule, cModule, wModule) {
       uModule.formatWord(currentWord);
 
       //check if user pressed space or enter
-      if (uModule.spacePressed(event) || uModule.enterPressed(event)) {
+      if (
+        uModule.spacePressed(event) ||
+        uModule.enterPressed(dModule.getLineReturn())
+      ) {
         //empty text input
         uModule.emptyInput();
         //deactivate current word

@@ -126,6 +126,12 @@ let uiModule = (function () {
     deactivateCurrentWord: function () {
       DOMElements.activeWord.removeAttribute("class");
     },
-    scroll: function () {},
+    scroll: function () {
+      let activeWord = DOMElements.activeWord,
+        top1 = activeWord.offsetTop,
+        top2 = DOMElements.content.offsetTop,
+        diff = top1 - top2;
+      DOMElements.content.scrollTop = diff - 60; // because we want to scroll to middle and the height of contyent is 180px
+    },
   };
 })();

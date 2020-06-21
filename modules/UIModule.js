@@ -60,7 +60,9 @@ let uiModule = (function () {
     showModal: function () {},
 
     //user input
-    inputFocus: function () {},
+    inputFocus: function () {
+      DOMElements.textInput.focus();
+    },
     isNameEmpty: function () {},
     flagNameInput: function () {},
     spacePressed: function () {},
@@ -83,10 +85,16 @@ let uiModule = (function () {
         .join("<span>&#8629;</span>");
       //set string into dom elements
       DOMElements.content.innerHTML = content;
-      console.log(content);
     },
-    formatWord: function (wordObject, wordHTML) {},
-    setActiveWord: function (index) {},
+    formatWord: function (wordObject) {
+      let activeWord = DOMElements.activeWord;
+      //highlight current word
+      activeWord.className = "activeWord";
+      //format individual characters
+    },
+    setActiveWord: function (index) {
+      DOMElements.activeWord = DOMElements.content.children[index];
+    },
     deactivateCurrentWord: function () {},
     scroll: function () {},
   };

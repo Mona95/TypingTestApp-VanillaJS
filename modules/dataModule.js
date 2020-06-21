@@ -18,9 +18,9 @@ let dataModule = (function () {
       numOfTestCharacters: 0,
     },
     words: {
-      currentWordIndex: 0,
+      currentWordIndex: -1,
       testWords: [],
-      currentWords: {},
+      currentWord: {},
     },
   };
 
@@ -86,11 +86,24 @@ let dataModule = (function () {
   //    value: {correct:'', user:'', isCorrect:false},
   //    characters: {correct:[], user:[], totalCorrect:0,totalTest:0}
   // }
-
-  let word = function (index) {};
+  class Word {
+    constructor(index) {
+      this.value = {
+        correct: appData.words.testWords[index] + " ",
+        user: "",
+        isCorrect: false,
+      };
+      this.charactes = {
+        correct: this.value.correct.split(""),
+        user: [],
+        totalCorrect: 0,
+        totalTest: this.value.correct.length,
+      };
+    }
+  }
 
   //update method
-  word.prototype.update = function (value) {};
+  Word.prototype.update = function (value) {};
 
   return {
     //indicators - test Control
@@ -132,8 +145,30 @@ let dataModule = (function () {
     getListOfTestWords: function () {
       return appData.words.testWords;
     },
-    moveToNewWord: function () {}, // increments the currentWordIndex - updates the current word(appData.words.currentWord)
+    // increments the currentWordIndex - updates the current word(appData.words.currentWord)
     //by creating a new instance of the word class - updates numOfCorrectWords, numOfCorrectCharacters and numOfTestCharacters
+    moveToNewWord: function () {
+      if (appData.words.currentWordIndex > -1) {
+        //in this case we should update number of correct words, number of correct characters and test characters
+      }
+      appData.words.currentWordIndex++;
+      let { currentWordIndex } = appData.words,
+        newWord = new Word(currentWordIndex);
+      appData.words.currentWord = newWord;
+      console.log(appData);
+    },
+    getCurrentWordIndex: function () {
+      return appData.words.currentWordIndex;
+    },
+    getCurrentWord: function () {
+      let currentWord = appData.words.currentWord;
+      return {
+        value: {
+          correct: currentWord.correct,
+          user: currentWord.user,
+        },
+      };
+    },
     updateCurrentWord: function (value) {}, // updates current word using user input
     getLineReturn: function () {
       return lineReturn;

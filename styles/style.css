@@ -88,3 +88,8 @@ header {
 .modal {
   color: black;
 }
+
+.activeWord {
+  background-color: greenyellow;
+  border-radius: 10px;
+}

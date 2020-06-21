@@ -3,15 +3,33 @@
 let eventsModule = (function (dModule, uModule, cModule, wModule) {
   let addEventListeners = function () {
     //character typing event listener
+    uModule.getDOMElements().textInput.addEventListener("input", (event) => {
+      //if the test ended , do nothing
+      if (dModule.testEnded()) {
+        return;
+      }
+      //if the test has not started yet ,start the test and countdown
+      if (!dModule.testStarted()) {
+        //start the test
+      }
+      //get typed word
+      let typedWord = uModule.getTypedWord();
+      //update current word
+      dModule.updateCurrentWord(typedWord);
+
+      //format current word
+
+      //check if user pressed space or enter
+      if (uModule.spacePressed() || uModule.enterPressed) {
+      }
+    });
+
     //click on download button event listener
   };
 
   return {
     //init function , initialize the test before start
     init: function (duration, textNumber) {
-      // STEPS :
-      // add event listeners
-
       // fill the list of test words : in data module
       let words = wModule.getWords(textNumber);
       dModule.fillListOfTestWords(textNumber, words);
@@ -43,6 +61,7 @@ let eventsModule = (function (dModule, uModule, cModule, wModule) {
       // focus on text input : in ui module
       uModule.inputFocus();
 
+      // add event listeners
       addEventListeners();
     },
   };

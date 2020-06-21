@@ -93,7 +93,7 @@ let dataModule = (function () {
         user: "",
         isCorrect: false,
       };
-      this.charactes = {
+      this.characters = {
         correct: this.value.correct.split(""),
         user: [],
         totalCorrect: 0,
@@ -102,8 +102,21 @@ let dataModule = (function () {
     }
   }
 
-  //update method
-  Word.prototype.update = function (value) {};
+  //update method to update the words
+  Word.prototype.update = function (value) {
+    this.value.user = value;
+    this.value.isCorrect = this.value.correct === this.value.user;
+    this.characters.user = this.value.user.split("");
+    //calculate the number of correct characters
+    let numOfCorrectChar = 0;
+    //calculate number of correct characters
+    let charCallback = (currentElement, index) => {
+      numOfCorrectChar +=
+        currentElement === this.characters.user[index] ? 1 : 0;
+    };
+    this.characters.correct.forEach(charCallback);
+    this.characters.totalCorrect = numOfCorrectChar;
+  };
 
   return {
     //indicators - test Control
@@ -121,7 +134,9 @@ let dataModule = (function () {
     }, //return the remaining test time
     reduceTime: function () {}, //reduces the time by one second
     timeLeft: function () {}, //checks if there is time left to continue the test
-    testEnded: function () {}, //checks if the test has already ended
+    testEnded: function () {
+      return appData.indicators.testEnded;
+    }, //checks if the test has already ended
     testStarted: function () {}, //checks if the test has started
 
     //results
@@ -169,7 +184,10 @@ let dataModule = (function () {
         },
       };
     },
-    updateCurrentWord: function (value) {}, // updates current word using user input
+    // updates current word using user input
+    updateCurrentWord: function (value) {
+      appData.words.currentWord.update(value);
+    },
     getLineReturn: function () {
       return lineReturn;
     },

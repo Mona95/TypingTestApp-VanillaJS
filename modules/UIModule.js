@@ -47,7 +47,11 @@ let uiModule = (function () {
 
   return {
     //get DOM elements
-    getDOMElements: function () {},
+    getDOMElements: function () {
+      return {
+        textInput: DOMElements.textInput,
+      };
+    },
 
     //indicators - Test Control
     updateTimeLeft: function (timeLeft) {
@@ -68,7 +72,9 @@ let uiModule = (function () {
     spacePressed: function () {},
     enterPressed: function () {},
     emptyInput: function () {},
-    getTypedWord: function () {},
+    getTypedWord: function () {
+      return DOMElements.textInput.value;
+    },
 
     //test words
     fillContent: function (array, lineReturn) {

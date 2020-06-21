@@ -28,7 +28,28 @@ let eventsModule = (function (dModule, uModule, cModule, wModule) {
       }
       //if the test has not started yet ,start the test and countdown
       if (!dModule.testStarted()) {
+        var results = {};
         //start the test
+        dModule.startTest();
+        //start a counter
+        let counter = setInterval(function () {
+          //calculate the results
+          //update wpm,wpmChange;
+          [results.wpm, results.wpmChange] = dModule.calculateWpm();
+          //update cpm, cpmChange
+          [results.cpm, results.cpmChange] = dModule.calculateCpm();
+          //update accurancy, accurancyChange
+          [
+            results.accurancy,
+            results.accurancyChange,
+          ] = dModule.calculateAccurancy();
+          //update results(in UI module)
+          if (dModule.timeLeft()) {
+            //update time left
+            let timeLeft = dModule.reduceTime();
+            uModule.updateTimeLeft(timeLeft);
+          }
+        }, 1000);
       }
       //get typed word
       let typedWord = uModule.getTypedWord();

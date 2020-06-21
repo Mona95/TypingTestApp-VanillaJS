@@ -124,26 +124,86 @@ let dataModule = (function () {
     setTestTime: function (x) {
       appData.indicators.totaltestTime = x;
     },
+    // initializes time left to the total test time
     initializeTimeLeft: function () {
       appData.indicators.timeLeft = appData.indicators.totaltestTime;
-    }, // initializes time left to the total test time
-    startTest: function () {}, //starts the test
+    },
+    //starts the test
+    startTest: function () {
+      appData.indicators.testStarted = true;
+    },
     endTest: function () {}, //ends the test
     getTimeLeft: function () {
       return appData.indicators.timeLeft;
     }, //return the remaining test time
-    reduceTime: function () {}, //reduces the time by one second
-    timeLeft: function () {}, //checks if there is time left to continue the test
+    //reduces the time by one second
+    reduceTime: function () {
+      appData.indicators.timeLeft--;
+      return appData.indicators.timeLeft;
+    },
+    //checks if there is time left to continue the test
+    timeLeft: function () {
+      return appData.indicators.timeLeft != 0;
+    },
+    //checks if the test has already ended
     testEnded: function () {
       return appData.indicators.testEnded;
-    }, //checks if the test has already ended
-    testStarted: function () {}, //checks if the test has started
+    },
+    //checks if the test has started
+    testStarted: function () {
+      return appData.indicators.testStarted;
+    },
 
     //results
-    calculateWpm: function () {}, //calculates wpm and wpmChange and updates them in appData
-    calculateCpm: function () {}, //calculates cpm and cpmChange and updates them in appData
-    calculateAccurancy: function () {}, //calculates accurancy and accurancyChange and updates them in appData
-
+    //calculates wpm and wpmChange and updates them in appData
+    calculateWpm: function () {
+      let wpmOld = appData.results.wpm,
+        numOfCorrectWords = appData.results.numOfCorrectWords,
+        { timeLeft, totaltestTime } = appData.indicators;
+      if (timeLeft !== totaltestTime) {
+        appData.results.wpm = Math.round(
+          (60 * numOfCorrectWords) / (totaltestTime - timeLeft)
+        );
+      } else {
+        appData.results.wpm = 0;
+      }
+      appData.results.wpmChange = appData.results.wpm - wpmOld;
+      return [appData.results.wpm, appData.results.wpmChange];
+    },
+    //calculates cpm and cpmChange and updates them in appData
+    calculateCpm: function () {
+      let cpmOld = appData.results.cpm,
+        numOfCorrectCharacters = appData.results.numOfCorrectCharacters,
+        { timeLeft, totaltestTime } = appData.indicators;
+      if (timeLeft !== totaltestTime) {
+        appData.results.cpm = Math.round(
+          (60 * numOfCorrectCharacters) / (totaltestTime - timeLeft)
+        );
+      } else {
+        appData.results.cpm = 0;
+      }
+      appData.results.cpmChange = appData.results.cpm - cpmOld;
+      return [appData.results.cpm, appData.results.cpmChange];
+    },
+    //calculates accurancy and accurancyChange and updates them in appData
+    calculateAccurancy: function () {
+      let accurancyOld = appData.results.accurancy,
+        numOfCorrectCharacters = appData.results.numOfCorrectCharacters,
+        numOfTestCharacters = appData.results.numOfTestCharacters,
+        { timeLeft, totaltestTime } = appData.indicators;
+      if (timeLeft !== totaltestTime) {
+        numOfTestCharacters != 0
+          ? (appData.results.accurancy = Math.round(
+              (100 * numOfCorrectCharacters) / numOfTestCharacters
+            ))
+          : (appData.results.accurancy = 0);
+      } else {
+        appData.results.accurancy = 0;
+      }
+      appData.results.accurancyChange =
+        appData.results.accurancy - accurancyOld;
+      return [appData.results.accurancy, appData.results.accurancyChange];
+    },
     //test words
     //fills words.testWords
     fillListOfTestWords: function (textNumber, words) {
@@ -165,6 +225,14 @@ let dataModule = (function () {
     moveToNewWord: function () {
       if (appData.words.currentWordIndex > -1) {
         //in this case we should update number of correct words, number of correct characters and test characters
+        appData.words.currentWord.value.isCorrect &&
+          appData.results.numOfCorrectWords++;
+
+        appData.results.numOfCorrectCharacters +=
+          appData.words.currentWord.characters.totalCorrect;
+
+        appData.results.numOfTestCharacters +=
+          appData.words.currentWord.characters.totalTest;
       }
       appData.words.currentWordIndex++;
       let { currentWordIndex } = appData.words,

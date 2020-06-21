@@ -43,7 +43,10 @@ let eventsModule = (function (dModule, uModule, cModule, wModule) {
             results.accurancy,
             results.accurancyChange,
           ] = dModule.calculateAccurancy();
+
           //update results(in UI module)
+          uModule.updateResults(results);
+
           if (dModule.timeLeft()) {
             //update time left
             let timeLeft = dModule.reduceTime();

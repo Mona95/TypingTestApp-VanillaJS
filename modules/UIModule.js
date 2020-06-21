@@ -9,7 +9,7 @@ let uiModule = (function () {
     cpm: document.getElementById("cpm"),
     cpmChange: document.getElementById("cpmChange"),
     accurancy: document.getElementById("accurancy"),
-    accurancyChange: document.getElementById("acuurancyChange"),
+    accurancyChange: document.getElementById("accurancyChange"),
     //user input
     textInput: document.querySelector("#input"),
     nameInput: document.querySelector(".form-group"),
@@ -45,6 +45,32 @@ let uiModule = (function () {
     return array.join("");
   };
 
+  let updateChanges = (value, changeElement) => {
+    //determine the class to add to the change element
+    let classToAdd, html;
+    [classToAdd, html] =
+      value >= 0 ? ["scoreUp", `+${value}`] : ["scoreDown", `${value}`];
+    //add % to the percentage change
+    if (changeElement === DOMElements.accurancyChange) {
+      html += "%";
+    }
+    //update the change element
+    changeElement.innerHTML = html;
+    //style the change element
+    changeElement.removeAttribute("class");
+    changeElement.className = classToAdd;
+
+    //fade element
+    fadeElement(changeElement);
+  };
+
+  let fadeElement = (element) => {
+    element.style.opacity = 1;
+    setTimeout(function () {
+      element.style.opacity = 0.9;
+    }, 1000);
+  };
+
   return {
     //get DOM elements
     getDOMElements: function () {
@@ -59,7 +85,23 @@ let uiModule = (function () {
     },
 
     //results
-    updateResults: function () {},
+    updateResults: function (results) {
+      let {
+        wpm,
+        wpmChange,
+        cpm,
+        cpmChange,
+        accurancy,
+        accurancyChange,
+      } = results;
+      DOMElements.wpm.innerHTML = wpm;
+      DOMElements.cpm.innerHTML = cpm;
+      DOMElements.accurancy.innerHTML = `${accurancy}%`;
+      //update changes
+      updateChanges(wpmChange, DOMElements.wpmChange);
+      updateChanges(cpmChange, DOMElements.cpmChange);
+      updateChanges(accurancyChange, DOMElements.accurancyChange);
+    },
     fillModal: function () {},
     showModal: function () {},
 

@@ -22,7 +22,23 @@ let eventsModule = (function (dModule, uModule, cModule, wModule) {
       uModule.formatWord(currentWord);
 
       //check if user pressed space or enter
-      if (uModule.spacePressed() || uModule.enterPressed) {
+      if (uModule.spacePressed(event) || uModule.enterPressed(event)) {
+        //empty text input
+        uModule.emptyInput();
+        //deactivate current word
+        uModule.deactivateCurrentWord();
+
+        // move to a new word : in data module
+        dModule.moveToNewWord();
+
+        // set active word : in ui module
+        let index = dModule.getCurrentWordIndex();
+        uModule.setActiveWord(index);
+        // format the active module : in ui module
+        let currentWord = dModule.getCurrentWord();
+        uModule.formatWord(currentWord);
+
+        uModule.scroll();
       }
     });
 

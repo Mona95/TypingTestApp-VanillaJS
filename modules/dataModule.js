@@ -179,8 +179,8 @@ let dataModule = (function () {
       let currentWord = appData.words.currentWord;
       return {
         value: {
-          correct: currentWord.correct,
-          user: currentWord.user,
+          correct: currentWord.value.correct,
+          user: currentWord.value.user,
         },
       };
     },

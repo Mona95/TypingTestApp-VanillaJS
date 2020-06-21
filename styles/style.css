@@ -93,3 +93,11 @@ header {
   background-color: greenyellow;
   border-radius: 10px;
 }
+
+.correctChar {
+  color: skyblue;
+}
+
+.wrongChar {
+  color: mediumvioletred;
+}

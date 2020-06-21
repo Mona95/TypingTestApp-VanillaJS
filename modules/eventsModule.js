@@ -18,6 +18,8 @@ let eventsModule = (function (dModule, uModule, cModule, wModule) {
       dModule.updateCurrentWord(typedWord);
 
       //format current word
+      let currentWord = dModule.getCurrentWord();
+      uModule.formatWord(currentWord);
 
       //check if user pressed space or enter
       if (uModule.spacePressed() || uModule.enterPressed) {

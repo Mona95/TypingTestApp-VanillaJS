@@ -96,7 +96,25 @@ let uiModule = (function () {
       let activeWord = DOMElements.activeWord;
       //highlight current word
       activeWord.className = "activeWord";
+
       //format individual characters
+      let correctValue = wordObject.value.correct,
+        userValue = wordObject.value.user;
+      const returnCharClass = (currentChar, index) => {
+        return index < userValue.length
+          ? currentChar == userValue[index]
+            ? "correctChar"
+            : "wrongChar"
+          : "0";
+      };
+      let classes = Array.prototype.map.call(correctValue, returnCharClass);
+      //get activeWord children tags
+      let characters = activeWord.children;
+      //add classes to children
+      for (let i = 0; i < characters.length; i++) {
+        characters[i].removeAttribute("class");
+        characters[i].className = classes[i];
+      }
     },
     setActiveWord: function (index) {
       DOMElements.activeWord = DOMElements.content.children[index];

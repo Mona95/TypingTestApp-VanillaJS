@@ -17,7 +17,8 @@ let uiModule = (function () {
     content: document.getElementById("content"),
     activeWord: "",
     //modal
-    modal: $("#myModal"),
+    modal: $("#finishedModal"),
+    downloadBtn: document.getElementById("download"),
   };
 
   let splitArray = (str) => {
@@ -102,8 +103,45 @@ let uiModule = (function () {
       updateChanges(cpmChange, DOMElements.cpmChange);
       updateChanges(accurancyChange, DOMElements.accurancyChange);
     },
-    fillModal: function () {},
-    showModal: function () {},
+    fillModal: function (wpm) {
+      let results;
+      switch (true) {
+        case wpm < 40:
+          results = {
+            type: "turtle",
+            level: "Beginner",
+          };
+          break;
+        case wpm < 70:
+          results = {
+            type: "horse",
+            level: "Average",
+          };
+          break;
+        case wpm > 70:
+          results = {
+            type: "puma",
+            level: "Expert",
+          };
+          break;
+        default:
+          break;
+      }
+      let htmlTpl =
+        "<div><p>You are a %type% !</p>You type at a speed of %wpm% per minute!<p></p></div>";
+
+      htmlTpl = htmlTpl.replace("%type%", results.type);
+      htmlTpl = htmlTpl.replace("%wpm%", wpm);
+
+      //insert htmlTpl before nameInput of modal
+      DOMElements.nameInput.insertAdjacentHTML("beforebegin", htmlTpl);
+
+      //store level in download button
+      DOMElements.downloadBtn.setAttribute("level", results.level);
+    },
+    showModal: function () {
+      DOMElements.modal.modal("show");
+    },
 
     //user input
     inputFocus: function () {

@@ -51,6 +51,13 @@ let eventsModule = (function (dModule, uModule, cModule, wModule) {
             //update time left
             let timeLeft = dModule.reduceTime();
             uModule.updateTimeLeft(timeLeft);
+          } else {
+            clearInterval(counter);
+            dModule.endTest();
+
+            //show and fill the module
+            uModule.showModal();
+            uModule.fillModal(results.wpm);
           }
         }, 1000);
       }

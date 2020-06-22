@@ -132,7 +132,10 @@ let dataModule = (function () {
     startTest: function () {
       appData.indicators.testStarted = true;
     },
-    endTest: function () {}, //ends the test
+    //ends the test
+    endTest: function () {
+      appData.indicators.testEnded = true;
+    },
     getTimeLeft: function () {
       return appData.indicators.timeLeft;
     }, //return the remaining test time
@@ -152,6 +155,9 @@ let dataModule = (function () {
     //checks if the test has started
     testStarted: function () {
       return appData.indicators.testStarted;
+    },
+    endTest: function () {
+      appData.indicators.testEnded = true;
     },
 
     //results

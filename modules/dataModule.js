@@ -262,6 +262,12 @@ let dataModule = (function () {
     updateCurrentWord: function (value) {
       appData.words.currentWord.update(value);
     },
+    getResult: function () {
+      return {
+        wpm: appData.results.wpm,
+        accurancy: appData.results.accurancy,
+      };
+    },
     getLineReturn: function () {
       return lineReturn;
     },

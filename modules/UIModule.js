@@ -13,6 +13,7 @@ let uiModule = (function () {
     //user input
     textInput: document.querySelector("#input"),
     nameInput: document.querySelector(".form-group"),
+    nameField: document.getElementById("name"),
     //test words
     content: document.getElementById("content"),
     activeWord: "",
@@ -77,6 +78,8 @@ let uiModule = (function () {
     getDOMElements: function () {
       return {
         textInput: DOMElements.textInput,
+        nameField: DOMElements.nameField,
+        download: DOMElements.downloadBtn,
       };
     },
 
@@ -147,8 +150,12 @@ let uiModule = (function () {
     inputFocus: function () {
       DOMElements.textInput.focus();
     },
-    isNameEmpty: function () {},
-    flagNameInput: function () {},
+    isNameEmpty: function () {
+      return DOMElements.nameField.value === "";
+    },
+    flagNameInput: function () {
+      DOMElements.nameField.style.borderColor = "red";
+    },
     spacePressed: function (event) {
       return event.data === " ";
     },

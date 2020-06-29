@@ -95,6 +95,14 @@ let eventsModule = (function (dModule, uModule, cModule, wModule) {
     });
 
     //click on download button event listener
+    uModule.getDOMElements().download.addEventListener("click", (event) => {
+      if (uModule.isNameEmpty()) {
+        uModule.flagNameInput();
+      } else {
+        let results = dModule.getResult();
+        cModule.generateCertificate(results);
+      }
+    });
   };
   //scroll active word into middle view on window resize.
   window.addEventListener("resize", uModule.scroll);
